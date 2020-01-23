@@ -1,18 +1,21 @@
-1. Implement function: tkaing two int arguments,return true if they have different sign
+Frequently asked "c" language interview questions:
+==================================================
+
+1. Implement function: taking two int arguments,return true if they have different sign
 
 2. Two/double dimensional array allocaiton[dynamic] using malloc - dynamic
 
 3. iterative vs recurssion - factorial of given number
 
-4. quicksort - implement & explain
+4. quicksort - implementation & explain
 
-5. Given system is little endian or big endian
+5. Given system is little endian or big endian?
 
-6. bit wise operations
+6. bit wise operations - set ,clear , toggle a given bit
 
 7. difference/substraction without "-"[minus] operator of given two variables
 
-8. container_of implemenataion 
+8. container_of implemenataion - container_of(ptr,struct abc , name)
 
 9. calling the function using function pointer
 
@@ -31,13 +34,15 @@
 16. variable number of arguments --function pointer as arguments
 
 17. string reverse without using the temp string
+
 18. *ptr++,(*ptr)++,++*ptr difference
 
 19. print a given number in charater string: 123 => one hundered twenty three
 
-20. a given string ...every char need to rotate with offset, if it cross(z/Z), in wrap it
+20. a given string ...every char need to rotate with offset(given), if it cross(z/Z), in wrap it
 
 21. compiler error: type cast: float to char: compilation error
+
 22.
 
 23.what is the output ?
@@ -106,7 +111,3 @@ int main()
 
 
 32. multiplication of two number , without using '*' operator
-
-
-
-	  
