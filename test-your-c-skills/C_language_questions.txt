@@ -1,0 +1,1763 @@
+1.Given system is little endian or big endian
+/*Given system is little endian or big endian*/
+
+/*
+LSB Byte stored in lower address of memory => little edian
+LSB Byte stored in higher address of memory => Big endian
+*/
+#include<stdio.h>
+
+int main(int argc,char **argv)
+{
+    int a=1;
+    char *char_ptr=NULL;
+
+    char_ptr=(char*)&a;
+    if(*char_ptr == 0x01)
+	printf("\nGiven system  is little endian\n");
+    else
+	printf("\nGiven system is big endian\n");
+    
+    printf("It's %ld bit system \n", sizeof(void *) * 8);
+return 0;
+}
+
+
+2.finding the nature of switch cases,default
+/*
+findinf the nature of switch cases
+*/
+#include<stdio.h>
+
+int main()
+{
+   int a=3;
+   switch(a) {
+	printf("\n it is statement out if cases\n");
+	default: printf("\n it is defualt executation\n");break;
+	case 1: printf("\n it is case 1 executation\n"); break;
+	case 2: printf("\n it is case 1 executation\n"); break;
+	}
+       return 0;
+}
+
+3.do-while vs while loop with continue and break
+/*
+do-while vs while loop with continue and break
+*/
+#include<stdio.h>
+
+int main()
+{
+     int a=10;
+     while(a<=30)
+     {
+	printf("value of a=%d\n",a);
+	a++;
+	if(a<20)
+          continue;
+	else
+	  break;
+    }
+
+
+     a=10;
+     do{
+	printf("new value of a=%d\n",a);
+	a++;
+	if(a<20)
+          continue;
+	else
+	  break;
+    }while(a<=30);
+}
+
+4.bit wise operations
+/*
+bit wise operations
+*/
+#include<stdio.h>
+
+void printbits(int a)
+{
+   int i;
+   for(i=((sizeof(int)*4)-1);i>=0;i--)
+   {
+	if(a & (1 << i))
+		printf("1");
+	else
+		printf("0");
+   }
+}
+
+#define set_bit(var ,pos) var=(var | (1<<pos))
+#define clear_bit(var ,pos) var=(var & ~(1<<pos))
+#define toggle_bit(var,pos) var=(var ^ (1<<pos))
+int main()
+{
+    int a=3;
+    printbits(a);
+    a=clear_bit(a,1);
+    printf("\nvalue of a after clear bit=%d\n",a);
+    a=set_bit(a,1);
+    printf("value of a after set bit =%d\n",a);
+    a=toggle_bit(a,1);
+    printf("value of a after set bit =%d\n",a);
+}
+
+5.conainer_of implemenataion 
+/*
+conainer_of implemenataion 
+*/
+#include<stdio.h>
+struct abc {
+	int a;
+	char b;
+	float c;
+	double d;
+}xyz;
+
+#define offset(type,member) (unsigned int) &(((type*)0)->member)
+#define address(add,type,member) (unsigned int) ((char*) add - offset(type,member))
+int main()
+{
+    printf("\n offset of d in struct abc is %d\n",offset(struct abc,d));	
+    printf("\n base address of struct abc = %u\n", &xyz);
+    printf("\n base address of struct abc = %u\n", address(&xyz.d,struct abc,d));
+}
+
+6.calling the function using function pointer
+
+/* calling the function using function pointer
+*/
+#include<stdio.h>
+int add(int a,int b)
+{
+	int c;
+	c=a+b;
+	return c;
+}
+int main()
+{
+    int (*fun_ptr)(int,int);
+    int c;
+
+	fun_ptr=add;
+	c=(*fun_ptr)(10,20);
+	printf("\nvalue of c= %d\n",c);
+}
+
+7.function arguemtns as function pointer
+/*
+function arguemtns as function pointer
+*/
+#include<stdio.h>
+int sub(int a,int b)
+{
+   int c;
+    c=a-b;
+    return c;
+}
+int add(int a,int b, int(*fp)(int,int))
+{
+	int c;
+	c=a+b;
+	c=(*fp)(a,b);
+	return c;
+}
+int main()
+{
+    int (*fun_ptr)(int,int, int(*fp)(int,int));
+    int c;
+
+	fun_ptr=add;
+	c=(*fun_ptr)(10,20,&sub);
+	printf("\nvalue of c= %d\n",c);
+}
+
+8.function return address of another function
+/*
+function return address of another function
+*/
+#include<stdio.h>
+int sub(int a,int b)
+{
+   int c;
+    c=a-b;
+    return c;
+}
+int (*add(int a,int b))(int,int)
+{
+	int c;
+	c=a+b;
+	return sub;
+}
+int main()
+{
+    int (*fun_ptr1)(int,int);
+    int (*(*fun_ptr2)(int,int))(int,int)=add;
+    int c;
+
+	fun_ptr1=fun_ptr2(10,20);
+	c=(*fun_ptr1)(10,20);
+	printf("\nvalue of c= %d\n",c);
+}
+
+9.function pointer array and storing/assigning the address of function
+/*
+function pointer array and storing/assigning the address of function
+*/
+#include<stdio.h>
+
+int add(int a,int b)
+{
+   return (a+b);
+}
+int sub(int a,int b)
+{
+   return (a-b);
+}
+
+int main()
+{
+   int (*fun_ptr[2])(int,int)={add,sub};
+   int c;
+
+      c=(*fun_ptr[0])(10,20);
+      printf("\n addition value=%d\n",c);
+      c=(*fun_ptr[1])(10,20);
+      printf("\n substraction value=%d\n",c);
+}
+
+10. void pointer, and type casting, derefrence
+/*
+void pointer, and type casting, derefrence
+*/
+#include<stdio.h>
+
+int main()
+{
+    char char_a='A';
+    int int_a=123;
+    void *ptr;
+    int *int_ptr=&int_a;
+    char *char_ptr=&char_a;
+    
+    ptr=(void*)&int_a;
+    printf("\n value of int a=%d",int_a);
+    printf("\n value of int a=%d",*int_ptr);
+    printf("\n value of int a=%d",*(int*)ptr);
+
+    ptr=(void*)&char_a;
+    printf("\n value of char a=%c",char_a);
+    printf("\n value of char a=%c",*char_ptr);
+    printf("\n value of char a=%c",*(char*)ptr);
+    printf("\n");
+}
+
+11.void pointer holding the address of function how to call the function,using void pointer
+/*
+void pointer holding the address of function
+how to call the function,using void pointer
+*/
+#include<stdio.h>
+int add(int a,int b)
+{
+   int c;
+    c=a+b;
+    return c;
+}
+int main()
+{
+    void *ptr=add;
+    int c;
+
+    c=((int (*)(int,int))ptr)(10,20);
+    printf("\n add value=%d\n",c);
+}
+
+12.variable number of arguments
+
+#include<stdio.h>
+#include<stdarg.h>
+
+int fun(int x,int y,...)
+{
+   va_list opt;
+   int a;
+   char *ptr;
+   int i;
+
+   printf("\n value of x=%d\n",x);
+   printf("\n value of y=%d\n",y);
+   va_start(opt,y);
+
+   for(i=0;i<y;i++)
+   {	
+       ptr=va_arg(opt,char*);
+       printf("\n string =%s\n",ptr);
+   }
+  
+   va_end(opt);
+}
+
+int main()
+{
+   fun(1,3,"alex","stephen","aravind");
+}
+
+13.function pointer as arguments to variable number of argument fucntion
+/*
+function pointer as arguments to variable number of arguemnt fucntion
+*/
+#include<stdio.h>
+#include<stdarg.h>
+
+int add(int a,int b)
+{
+	return (a+b);
+}
+int sub(int a,int b)
+{
+	return (a-b);
+}
+int fun(int x,int y,...)
+{
+   va_list opt;
+   int (*fun_ptr1)(int,int);
+   int (*fun_ptr2)(int,int); 
+   typedef int (*fun_ptr)(int,int); 
+   int c;
+
+   printf("\n value of x=%d\n",x);
+   printf("\n value of y=%d\n",y);
+   va_start(opt,y);
+   fun_ptr1=va_arg(opt,fun_ptr);
+   fun_ptr2=va_arg(opt,fun_ptr);
+
+   c=(*fun_ptr1)(10,20);
+   printf("\n value of c[add]=%d\n",c);
+   c=(*fun_ptr2)(10,20);
+   printf("\n value of c[sub]=%d\n",c);
+
+  va_end(opt);
+}
+
+14.Two/double dimensional array allocaiton[dynamic] using malloc
+/*
+double dimensional array allocaiton
+*/
+#include<stdio.h>
+#include<malloc.h>
+
+int main()
+{
+	int **ptr;
+	int rows=2,columns=2;
+       int i,j;
+
+
+	ptr=(int **)malloc(sizeof(int *)*rows);
+
+	for(i=0;i<rows;i++) {
+		ptr[i]=(int*)malloc(sizeof(int )*columns);
+	}
+
+	for(i=0;i<rows;i++)
+		for(j=0;j<columns;j++) 
+			ptr[i][j]=10;
+	
+	for(i=0;i<rows;i++)
+	{
+		printf("\n");
+		for(j=0;j<columns;j++)
+			printf("%d\t",ptr[i][j]);;
+	}
+       for(i=0;i< rows;i++)
+		free(ptr[i]);
+	free(ptr);
+}
+
+15.Function to print reverse of the passed given string 
+# include <stdio.h>
+ 
+/* Function to print reverse of the passed string */
+void reverse(char *str)
+{
+   if(*str)
+   {
+       reverse(str+1);
+       printf("%c", *str);
+   }
+}
+ 
+/* Driver program to test above function */
+int main()
+{
+   char a[] = "Geeks for Geeks";
+   printf("\n original string=%s\n",a);
+   reverse(a);
+   getchar();
+   return 0;
+}
+
+16.Allocation of memory for structure and its members
+
+#include<stdio.h>
+#include<malloc.h>
+#include<string.h>
+
+struct abc {
+	int len;
+	char *buffer;
+};
+
+int main()
+{
+
+	char name[]="Ravinder";
+	struct abc *abc_ptr;
+	
+	abc_ptr = (struct abc*) malloc( sizeof(struct abc) + strlen(name) + 1);
+        abc_ptr->len=strlen(name);
+        abc_ptr->buffer=(char*)abc_ptr + sizeof(struct abc);
+	strcpy(abc_ptr->buffer,name);
+
+
+	printf("len=%d\n",abc_ptr->len);
+	printf("name=%s\n",abc_ptr->buffer);
+	free(abc_ptr);
+	return 0;
+}
+
+17. *ptr++,(*ptr)++,++*ptr difference
+
+#include<stdio.h>
+
+int main()
+{
+	char name[]="Alexander";
+	char *ptr=name;
+	
+	printf("name=%s\n",ptr);
+	*ptr++;
+	printf("name=%s\n",ptr);
+        (*ptr)++;
+	printf("name=%s\n",ptr);
+        ++*ptr;
+	printf("name=%s\n",ptr);
+}
+
+18.const pointer[can be assigned,it is readonly]
+#include<stdio.h>
+
+int main()
+{
+	const int *ptr;
+	int a=100; int b=300;
+	ptr=&a;
+	printf("\n value of a=%d\n",*ptr);
+	ptr=&b;
+	printf("\n value of b=%d\n",*ptr);
+}
+
+19.read only const pointer [const pointer to cont int]
+#include<stdio.h>
+
+int main()
+{
+	
+	int a=100; int b=300;
+	const int *const ptr=&a; //read only const pointer
+	printf("\n value of a=%d\n",*ptr);
+}
+
+20. structure packing......
+#include<stdio.h>
+
+struct abc {
+	int a;
+	char b;
+	float c;
+	char d;
+	double e;
+}__attribute__((packed)) s;
+
+int main()
+{
+	//struct abc s;
+	printf("\n size of sturct abc = %d",sizeof(struct abc));
+	printf("\n size of int a=%d",sizeof(s.a));
+	printf("\n size of char b=%d",sizeof(s.b));
+	printf("\n size of float c=%d",sizeof(s.c));
+	printf("\n size of char d=%d",sizeof(s.d));
+	printf("\n size of double e=%d",sizeof(s.e));
+}
+
+21. special pointer (*ptr)[]
+#include<stdio.h>
+
+int main()
+{
+	int a[]={1,2,3,4,5,6,7,8,9};
+        int (*ptr)[3];
+
+	ptr=&a;
+	printf("\nvalue of a =%d\n",*((int*)ptr));
+	*ptr++;
+	printf("\nvalue of a =%d\n",*((int*)ptr));
+	*ptr++;
+	printf("\nvalue of a =%d\n",*((int*)ptr));
+}
+
+22.string reverse without using the temp string
+/*
+string reverse without using the temp string
+*/
+#include<stdio.h>
+void xstrrev(char *str)
+{
+       char *end=str;
+       char temp=*str;
+       if(temp) {
+              while(*end)
+              end++;
+       }
+       end--;
+
+       while(str < end)
+       {
+              temp=*str;
+              *str++=*end;
+              *end--=temp;
+       }
+return;
+}
+int main()
+{
+       char str1[]="aravindkumar";
+
+       printf("name=%s\n",str1);
+       xstrrev(&str1[0]);
+       printf("name=%s\n",str1);
+return 0;
+}
+
+23.fill the space with 02% in a given string,caution, not to allcoate any string
+/*
+fill the space with 02% in a given string
+caution, not to allcoate any string
+*/
+
+#include<stdio.h>
+int main()
+{
+       char name[50]="My name is aravid kumar";
+       int i=0,length=0,new_length,num_spaces;
+       while(name[i] !='\0')
+       {
+              length++;
+              i++;
+       }
+       printf("string length=%d %d\n",i,length);
+       while(i)
+       {      
+              if(name[i]== ' ')
+                     num_spaces++;
+              i--;
+       }
+       printf("num of apces=%d\n",num_spaces);
+       new_length= length + (num_spaces * 2);
+       name[new_length+1]='\0';
+       for(i=length;i>=0;i--)
+       {
+              if(name[i]== ' ')
+              {
+                     name[new_length]='%';
+                     name[new_length-1]='2';
+                     name[new_length-2]='0';
+                     new_length=new_length-3;
+              } else {
+                     name[new_length]=name[i];
+                     new_length=new_length-1;
+              }
+       }
+       printf("sting=%s\n",name);
+return 0;
+}
+
+24.test input: aaabbbcccddd...output print:a3b3c3d3
+/*
+test: aaabbbcccddd...print a3b3c3d3
+*/
+#include<stdio.h>
+void xstrcount(char *str)
+{
+       char temp=*str;
+       int i=0,flag=0,count=0;
+       char new_str[50];
+
+       while(*str != '\0')
+       {
+              if(*str==temp)
+              {
+                     count++;
+                     flag=1;
+                     str++;
+              } else {
+                     new_str[i]=temp;
+                     i++;
+                     new_str[i]=0x30+count;
+                     i++;
+                     temp=*str;
+                     count=0;
+                     flag=0;
+              }
+       }
+       if(flag==1) {
+
+              new_str[i]=temp;
+              i++;
+              new_str[i]=0x30+count;
+              i++;
+              new_str[i]='\0';
+       }
+       printf("new string=%s\n",new_str);
+}
+int main()
+{
+       char str[]="aaabbbcccdd";
+       xstrcount(&str[0]);
+       return 0;
+}
+
+25.find the number of flips are required to make M and N are equal
+/*
+find the numbser of flips are required to make M and N are equal
+*/
+
+#include<stdio.h>
+int main()
+{
+       int m,n;
+       int c,count=0;
+       printf("Enter two numbers M.N\n");
+       scanf("%d%d",&m,&n);
+       c=m^n;
+       while(c)
+       {
+              c=c&(c-1);
+              count++;
+       }
+       printf("number of flips=%d",count);
+return 0;
+}
+
+26. Inputs : two strings ,find one string is rotation of other string or not
+/*
+string rotation of given string or not
+*/
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+       char str1[]="waterbottle";
+       char str2[]="bottlewater";
+       char str3[80];
+       char *ret;
+
+       strcat(str3,str1);
+       strcat(str3,str1);
+
+       if(strlen(str1) == strlen(str2)) {
+
+              ret=strstr(str3,str2);
+              printf("return string=%s\n",ret);
+       }else {
+              printf("str2 is not roation of str1\n");
+       }
+       printf("str2 is not roation of str1\n");
+return 0;
+}
+
+27...........................................
+
+28.How to assign the values of given structure
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+struct arr {
+    int depth;
+    int value;
+};
+int main()
+{
+    int i;
+    struct arr name[50]= {  //{ .depth=1},{ .depth=1},{ .depth=1},{ .depth=1},{ .depth=1}};
+        [0 ... 5],[11 ... 15] = { 
+        .depth      = 1,
+	.value      = 128, 
+        },
+
+        [6 ... 10] = { 
+        .depth      = 2,
+	.value      = 255, 
+        }  
+
+    };
+
+    //name[0].depth=1;
+    //name[1].depth=1;
+    //name[2].depth=1;
+    //name[3].depth=1;
+    //name[4].depth=1;
+    for(i=0;i<=15;i++)
+        printf("name[%d].depth=%d  name[%d].value=%d\n",i,name[i].depth,i,name[i].value);
+}
+
+29.Input:He is good output:eH si doog
+   Reverse the words in given strings.
+         Ex: I am good boy
+         answer : boy good am I
+
+#include<stdio.h>
+void xstrrev(char *start,char *end);
+void xstrrev(char *start,char *end)
+{
+       char temp;
+       while(start < end)
+       {
+              temp=*start;
+              *start++=*end;
+              *end--=temp;
+       }
+}
+int main()
+{
+       char str[]="He is good";
+       int n=0,i=0;
+       char *start,*end;
+
+       printf("initial string =%s\n",str);
+       n=strlen(str);	
+       start=&str[i];
+       end=&str[n-1];
+       xstrrev(start,end);
+       printf("Reverse string =%s\n",str);
+       start=&str[i];
+       n++;
+       while(n)
+       {
+              if((str[i]==' ') || (str[i]== '\0'))
+              {
+                     end=&str[i-1];
+                     xstrrev(start,end);
+                     i++;
+                     start=&str[i];
+              }else {
+                     i++;
+              }
+       n--;
+       }
+       printf("Reverse string =%s\n",str);
+       return 0;
+}
+
+30.Write a function[most effective] to count the numbers 1 in a given number
+/*Write a function[most effective] to count the numbers 1 in a given number?
+
+Example: n is the given number
+*/
+#include<stdio.h>
+int main()
+{
+     int n=120; 
+     int count=0;
+     while(n)
+     {
+        count++;
+        n = n & (n-1); 
+     }
+     printf("number of 1's in given number=%d\n",count);
+return 0;
+}
+
+31.swap all odd and even bits
+/*swap all odd and even bits?*/
+#include<stdio.h>
+unsigned int swapBits(unsigned int x)
+{
+    // Get all even bits of x
+    unsigned int even_bits = x & 0xAAAAAAAA;
+     // Get all odd bits of x
+    unsigned int odd_bits  = x & 0x55555555;
+    even_bits >>= 1;  // Right shift even bits
+    odd_bits <<= 1;   // Left shift odd bits
+    return (even_bits | odd_bits); // Combine even and odd bits
+}
+
+int main()
+{
+       unsigned int n=150;
+       n=swapBits(n);
+       printf("value after swap bits=%d\n",n);
+       return 0;
+}
+
+32.Rounding off the integer to next highest power of 2
+/*Rounding off the integer to next highest power of 2 ?*/
+#include<stdio.h>
+int function_get_power(int n)
+{
+  int k = 1;
+  while (k < n)
+    k *= 2;
+  return k;
+}
+int main()
+{
+    int n=3;
+    n=function_get_power(n);
+    printf("Return value=%d\n",n);
+    return 0;
+}
+
+33.command line arguments
+
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main (int argc, char **argv)
+{
+  int aflag = 0;
+  int bflag = 0;
+  char *cvalue = NULL;
+  int index;
+  int c;
+
+  opterr = 0;
+
+  while ((c = getopt (argc, argv, "a:b:c:")) != -1)
+    switch (c)
+      {
+      case 'a':
+        aflag = atoi(optarg);
+        break;
+      case 'b':
+        bflag = atoi(optarg);
+        break;
+      case 'c':
+        cvalue = optarg;
+        break;
+      case '?':
+        if (optopt == 'c')
+          fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+        else if (isprint (optopt))
+          fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+        else
+          fprintf (stderr, "Unknown option character `\\x%x'.\n", optopt);
+        return 1;
+      default:
+        abort ();
+      }
+
+  printf ("aflag = %d, bflag = %d, cvalue = %s\n", aflag, bflag, cvalue);
+
+  for (index = optind; index < argc; index++)
+    printf ("Non-option argument %s\n", argv[index]);
+  return 0;
+}
+
+34.strtok function
+
+#include <stddef.h>
+#include <string.h> 
+#include <stdlib.h>
+#include <stdio.h>
+int main()
+{
+	char test[80], blah[80];
+	char *sep = "\\/:;=-";
+	char *word, *phrase, *brkt, *brkb;
+	printf("String tokenizer test:\n");
+	strcpy(test, "This;is.a:test:of=the/string\\tokenizer-function.");
+	for (word = strtok(test, sep);	word;	word = strtok(NULL, sep))
+	{
+		printf("Next word is \"%s\".\n", word);
+	} 
+}
+
+35.strcat operation---append the sting to another string
+/*
+   strcat operation
+ */
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+
+char* my_str_cat(char *dest,const char *src)
+{
+	int n=strlen(dest),i;
+
+         for(i=0;src[i]!='\0';i++)
+             dest[n+i]=src[i];
+         dest[n+i] = '\0';
+      	return dest;
+}
+int main()
+{
+     char dest[50]="welcome ";
+     char src[]="to programming skills";
+     char *ptr;
+      ptr=my_str_cat(&dest[0],&src[0]);
+      printf("\nsrc string=%s\n",src);    
+      printf("\ndest string=%s\n",dest);    
+      printf("\ndest string=%s\n",ptr);
+return 0;
+} 
+
+36.strchr operation function
+/*
+strchr operation function
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+
+char *str_chr(const char *dest,char ch)
+{
+     int n=strlen(dest),i;
+      for(i=0;i<n;i++) {
+          if(dest[i]==ch)
+	     return &dest[i];
+      }
+      return NULL;
+}
+int main()
+{
+     char dest[]="welocme to hello world";
+     char *ptr;
+     ptr=str_chr(&dest[0], 'z');
+     printf("string=%s\n",ptr);
+return 0;
+} 
+
+37.strdup function implementation
+/*
+strdup function implementation
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+#include<malloc.h>
+
+char* str_dup(const char *src)
+{
+        int n=strlen(src)+1;
+        char *ptr;
+
+	ptr=(char*)malloc(sizeof(char)*n);
+	if(ptr==NULL) return NULL;
+	else {
+	   strcpy(ptr,src);
+	   return ptr;
+       }
+}
+
+int main()
+{
+    char src[]="welcome to programming skills";
+    char *ptr;
+    ptr=str_dup(&src[0]);
+    printf("duplicate string=%s\n",ptr);
+    free(ptr);
+return 0;
+}
+
+38.strstr implementation function
+/*
+strstr implementation function
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
+
+char* str_str(char *src,  char *sub)
+{
+    int n=strlen(src),i;
+    int m=strlen(sub);
+
+    for(i=0;i<n;i++) {
+         if(strncmp(&src[i],sub,m) == 0){
+               printf("both strings are eual at index=%d",i);
+               return(&src[i]);
+           }
+     }
+     return NULL;
+}
+
+char* str_str(char *src,  char *substr)
+{
+
+while(*src) {
+	char *str1=src;
+	char *str2=substr;
+	while(*str1 && *str2 && *str1==*str2)
+	{
+		str1++;
+		str2++;
+	}
+	if(!*str2) return str1;
+	src=str1+1;
+
+}
+   return NULL;
+}
+int main()
+{
+    char src[]="alexreddy";
+    char substr[]="red";
+    char *ptr;
+ 
+    ptr=str_str(&src[0],&substr[0]);  
+    printf("string=%s\n",ptr);
+return 0;
+} 
+
+39.strcmp function implementation
+/*
+strcmp,strncmp,memcmp operations
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+int my_strcmp(char *dest,char *src)
+{
+    int i;
+      if(strlen(dest) == strlen(src)) 
+      {
+         for(i=0;i<strlen(dest);i++)
+                  if(*dest++!=*src++)
+                     return -1;
+            
+     }
+     //while(*dest && *src && *dest==*src)
+      //{
+        //  dest++; src++;
+      //}
+     return 0;
+}
+int main()
+{
+   char str1[]="aravind";
+   char *str2="aravind";
+
+   if(my_strcmp(&str1[0],str2) == 0)
+           printf("\n both are equal\n");
+        else   
+           printf("\n both are not equal\n");
+return 0;
+}
+
+40.number conversion: from decimal to hexa, decimal to oct,decimal to binary
+/*
+number conversion:
+from deciaml to hexa,
+decimal to oct,
+deciaml to binary
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+
+void decimal_to_binary(int decimal)
+{
+    int quo,i=0;
+    char str[32]; 
+    while(decimal!=0)
+    {
+       quo=decimal%2;
+       printf("quo=%d\n",quo);
+       str[i]=quo;
+       decimal=decimal/2;
+       i++;
+    }
+    while(i--) {
+      printf("%d",str[i]);
+    } 
+    printf("\n");
+}
+void decimal_to_octa(int decimal)
+{
+     int quo,i=0;
+     char str[8];
+     
+     while(decimal!=0)
+     {
+        quo=decimal%8;
+        printf("oct quo=%d\n",quo);
+        str[i]=quo;
+        decimal=decimal/8;
+        i++;
+    }
+    while(i--) {
+        printf("%d",str[i]);
+    }
+    printf("\n");
+}
+void decimal_to_hexa(int decimal)
+{
+    int quo,i=0;
+     char str[8];
+    
+    while(decimal!=0)
+    {
+        quo=decimal%16;
+        printf("hexa quo=%d\n",quo);
+        str[i]=quo;
+        decimal=decimal/16;
+        i++;
+    }
+    while(i--) {
+          printf("%d",str[i]);
+    }
+    printf("\n");
+}
+
+
+int main()
+{
+    int n=512;
+    decimal_to_binary(n);
+    decimal_to_octa(n);
+    decimal_to_hexa(n); 
+return 0;
+}
+
+41.write a program to convert  int[32 bit number]: from little enidan to big endian  and vice-versa
+/*
+write a program to convert
+int[32 bit number]: from little enidan to big endian
+ and vice-versa
+
+int value = 0x00000016 in little endian, big endian 0x16000000
+*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+void convert_little_big_endian(unsigned int *ptr)
+{
+	char *low_byte,*high_byte;
+        char temp;
+        low_byte=(char*)ptr;
+        high_byte=low_byte+3;
+	while(low_byte < high_byte) {
+           temp=*low_byte;
+           *low_byte=*high_byte;
+           *high_byte=temp;
+           low_byte++;
+           high_byte--;
+       }
+}
+int main()
+{
+   unsigned int a=0x0016;
+   printf("\nsrc lillte endian value a=%4x\n",a);
+   convert_little_big_endian(&a);
+   printf("\nsrc big  endian value a=%4x\n",a);
+   convert_little_big_endian(&a);
+   printf("\nsrc little  endian value a=%4x\n",a);
+}
+
+42................................................
+
+43.A C implementation of memcpy
+
+/*void * memcpy(void * destination, const void * source, size_t num);
+
+The idea is to simply typecast given addresses to char *(char takes 1 byte). Then one by one copy data from source to destination. Below is implementation of this idea.
+// A C implementation of memcpy()
+*/
+#include<stdio.h>
+#include<string.h>
+
+void *my_memcpy(void * dst, void const * src, size_t len)
+{
+    char *pdst = (char *)dst;
+    char const * psrc = (char const *)src;
+
+    while (len--)
+    {
+        *pdst++ = *psrc++;
+    }
+
+    return (dst);
+} 
+
+ 
+// Driver program
+int main()
+{
+   char csrc[] = "GeeksforGeeks";
+   char cdest[100];
+   my_memcpy(cdest, csrc, strlen(csrc)+1);
+   printf("Copied string is %s", cdest);
+ 
+   int isrc[] = {10, 20, 30, 40, 50};
+   int n = sizeof(isrc)/sizeof(isrc[0]);
+   int idest[n], i;
+   my_memcpy(idest, isrc,  sizeof(isrc));
+   printf("\nCopied array is ");
+   for (i=0; i<n; i++)
+     printf("%d ", idest[i]);
+   return 0;
+}
+
+
+44.program to demonstrate implementation of memmove()
+
+//C++ program to demonstrate implementation of memmove()
+#include<stdio.h>
+#include<string.h>
+ 
+// A function to copy block of 'n' bytes from source
+// address 'src' to destination address 'dest'.
+void* myMemMove(void *dest, void *src, size_t n)
+{
+    int i=0;
+   // Typecast src and dest addresses to (char *)
+   char *csrc = (char *)src;
+   char *cdest = (char *)dest;
+ 
+   // Create a temporary array to hold data of src
+   char *temp = (char*)malloc(sizeof(char)*n);
+ 
+   // Copy data from csrc[] to temp[]
+   for (i=0; i<n; i++)
+       temp[i] = csrc[i];
+ 
+   // Copy data from temp[] to cdest[]
+   for (i=0; i<n; i++)
+       cdest[i] = temp[i];
+ 
+   free(temp);
+   return dest;
+}
+ 
+// Driver program
+int main()
+{
+   char csrc[100] = "Geeksfor";
+   myMemMove(csrc+5, csrc, strlen(csrc)+1);
+   printf("%s", csrc);
+   return 0;
+}
+
+45.memory compare function
+
+#include <stddef.h> /* size_t */
+int memcmp(const void* s1, const void* s2,size_t n)
+{
+    const unsigned char *p1 = s1, *p2 = s2;
+    while(n--)
+        if( *p1 != *p2 )
+            return *p1 - *p2;
+        else
+            p1++,p2++;
+    return 0;
+}
+// Driver program
+int main()
+{
+   char csrc[100] = "Geeksfor";
+   char cdst[100] = "Geeksfor";
+   int n = memcmp(csrc,cdst,strlen(csrc));
+   printf("memcmp return value=%d\n",n);
+   return 0;
+}
+
+46.strtok function implementation
+
+#include<stdio.h>
+#include<stdlib.h 
+char * strtok(char * s, char *comp);
+void main()
+{
+     char str[80] = "This is-www.tutorialspoint.com-website";
+     const char delimit[2] = "-";
+     char *p;
+	
+	p = strtok(str,delimit);	
+	while(p != NULL)
+	{
+		printf("%s\n", p);
+		p = strtok(NULL, delimit);			
+	}
+}
+char * strtok(char * str, char *comp)
+{
+	static int pos;
+	static char *s;	
+	int i =0, start = pos;
+        int j;
+	// Copying the string for further calls of strtok
+	if(str!=NULL)
+		s = str;
+	
+	i = 0;
+	j = 0;
+	//While not end of string
+	while(s[pos] != '\0')
+	{
+		j = 0;	
+		//Comparing of one of the delimiter matches the character in the string
+		while(comp[j] != '\0')
+		{		
+			//Pos point to the next location in the string that we have to read
+			if(s[pos] == comp[j])
+			{
+				//Replace the delimter by \0 to break the string
+				s[pos] = '\0';
+				pos = pos+1;				
+				//Checking for the case where there is no relevant string before the delimeter.
+				//start specifies the location from where we have to start reading the next character
+				if(s[start] != '\0')
+					return (&s[start]);
+				else
+				{
+					printf("never enter into this case\n");
+					// Move to the next string after the delimiter
+					start = pos;
+					// Decrementing as it will be incremented at the end of the while loop
+					pos--;
+					break;
+				}
+			}
+			j++;
+		}
+		pos++;		
+	}//End of Outer while
+	s[pos] = '\0';
+	if(s[start] == '\0')
+		return NULL;
+	else
+		return &s[start];
+}
+
+47.............................
+
+48. constructor and destructor function
+#include<stdio.h>
+ 
+/* Apply the constructor attribute to myStartupFun() so that it
+    is executed before main() */
+void myStartupFun (void) __attribute__ ((constructor));
+ 
+ 
+/* Apply the destructor attribute to myCleanupFun() so that it
+   is executed after main() */
+void myCleanupFun (void) __attribute__ ((destructor));
+ 
+ 
+/* implementation of myStartupFun */
+void myStartupFun (void)
+{
+    printf ("startup code before main()\n");
+}
+ 
+/* implementation of myCleanupFun */
+void myCleanupFun (void)
+{
+    printf ("cleanup code after main()\n");
+}
+ 
+int main (void)
+{
+    printf ("hello\n");
+    return 0;
+}
+
+49.iterative vs recurssion
+/*
+factorial of num*/
+#include<stdio.h>
+int main()
+{
+    int n=5,result=0;
+    result=fact_recur(n);
+    printf("factorial of given no=%d is %d\n",n,result);
+
+    result=fact_iterative(n);
+    printf("factorial of given no=%d is %d\n",n,result);
+
+    result=mult_recur(n,5);
+     printf("mult of given no=%d is %d\n",n,result);
+
+    result=mult_iterative(n,5);
+     printf("mult of given no=%d is %d\n",n,result);
+    return 0;
+}
+
+int fact_recur(int n)
+{
+     if(n==0) return 1;
+     return(n*fact_recur(n-1));
+}
+int fact_iterative(int n)
+{
+    int  fact=1;
+     while(n)
+    {
+	  fact=fact*n;
+	  n--;
+    }
+return(fact);
+}
+
+50. array recurssion [sum,max,min value of array]
+#include<stdio.h>
+
+int main()
+{
+    int a[10]={1,2,3,4,5,6,7,8,9,10};
+    int sum=0,max=-1,min=32768;
+
+    sum=array_sum(a,9);
+    printf("array sum=%d\n",sum);
+
+    max=array_max(a,9,max);
+    printf("max of array =%d\n",max);
+
+    min=array_min(a,9,min);
+    printf("min of array =%d\n",min);
+
+    min=array_product(a,9);
+    printf("product of array =%d\n",min);
+}
+
+int array_sum(int a[],int index)
+{
+   if(index == -1)  return 0;
+   return(a[index]+array_sum(a,--index));
+} 
+
+int array_max(int a[],int index,int max)
+{
+   if(index == -1)  return max;
+   if(max < a[index]) max=a[index];
+   return(array_max(a,--index,max));
+} 
+
+int array_min(int a[],int index,int min)
+{
+   if(index == -1)  return min;
+   if(min > a[index]) min=a[index];
+   return(array_min(a,--index,min));
+} 
+
+int array_product(int a[],int index)
+{
+   if(index == -1)  return 1;
+   return(a[index]*array_product(a,--index));
+} 
+
+51.............
+52..............
+
+53.difference/substraction without "-"[minus] operator
+#include<stdio.h>
+
+int main()
+{
+
+    int a=10,b=5;
+    int c;
+    int array[100]={1,2,3,4,5};
+
+    printf("\ndifference without - opertor\n");
+    c=a-b;
+    printf("diff=%d\n",c);
+    b=(~b+1);
+    c=a+b;
+    printf("diff=%d\n",c);
+
+    printf("\narray elements....\n");
+    printf("a[%d]=%d,a[%d]=%d,a[%d]=%d\n",10,array[10],20,array[20],30,array[30]);
+    printf("\narray elements....with a++\n");
+    printf("%d,%d,%d,%d\n",*array,*(array+1),*(array+2),*(array+3));
+    return 0;
+}
+
+53.
+preprocessor  => gcc -E test.c > test.i
+assembler     => gcc -S test.i -o test.s
+compiler      => as  test.s -o test.o
+linker        => ld  test.o -o test --dynamic-linker /lib64/ld-linux-x86-64.so.2  -lc
+
+
+ 1638  gcc -E test.c > test.i
+ 1639  vim test.i
+ 1640  gcc -S test.i -o test.s
+ 1641  vim test.s
+ 1642  as test.s -o test.o
+ 1643  file test.o
+ 1644  readelf test -h
+ 1645  readelf test.o -h
+ 1646  ld test.o -o test --dynamic-linker /lib64/ld-linux-x86-64.so.2  -lc
+ 1647  file test
+
+54.data type and size allocation
+#include<stdio.h>
+
+int main()
+{
+	printf("\nsigned char size =%d",sizeof(char));
+	printf("\nun signed char size =%d",sizeof(unsigned char));
+	printf("\nchar size =%d",sizeof(char));
+        printf("\n==============================");
+	printf("\nsigned int size =%d",sizeof(signed int));
+	printf("\nunsigned char size =%d",sizeof(unsigned int));
+	printf("\nint size =%d",sizeof(int));
+        printf("\n==============================");
+	printf("\nfloat size =%d",sizeof(float));
+	//printf("\nlong float size =%d",sizeof(long float));
+        printf("\n==============================");
+	printf("\ndouble size =%d",sizeof(double));
+	printf("\nlong double size =%d",sizeof(long double));
+        printf("\n==============================");
+	printf("\nshort size =%d",sizeof(short));
+	printf("\nlong  size =%d",sizeof(long));
+        printf("\n==============================");
+	printf("\nshort int size =%d",sizeof(short int));
+	printf("\nlong  int size =%d",sizeof(long int));
+	printf("\nlong  long size =%d",sizeof(long long));
+	printf("\n");
+	return 0;
+}
+
+55.
+complicated declarations:
+=========================
+1.void (*f[10])(int,int) ==> f is array of 10 function pointers,points to function, takes two ints,return void
+2.int (*ptr)[10]; ==>pointer to array of 10 intergers
+3.int *ptr[10]; ====>ptr is array of 30 pointers to integers
+4.int (*a[5])(int *p)==> a is array of 5 function pointers,receive int pointer and return int
+5.char (*(*f())[])();===> f is a function pointer,return a pinter to an array of pointers to function that return a char.
+
+56. What are options/ways are available for conditional compilation?
+#if #elif #else #endif
+#ifdef #else #endif
+#ifndef #else #endif
+
+57. We have short,long, signed, unsigned qualifiers, can we apply on all data types[int,float,double,char]? if not why?
+signed ,unsigned ==> int,char
+short , long ==>int
+long ==> double
+
+58. what is wild & dangling pointer?,how to avoid it in program?
+Dangling pointer:Pointer assigned some memory and then free that memory. After freeing when not assigned to NULL 
+it still points to same memory address, such pointer are dangling pointer.
+
+Wild pointer:Pointer which are not initialized during its definition holding some junk value( a valid address) are Wild pointer.
+
+59.what is null pointer? NULL Macro
+
+not to point to any object or function of that type....null pointeris the integer 0
+Null Maco is used to represent the null pointer in source code..it has a value 0 associated with it
+
+
+60. What is the difference between malloc and calloc
+malloc---take signel agument
+calloc---take two arguments ( int,sizeof(int)),,,,,initialized to zero
+
+
+61.what are the advantages of typedef
+
+1.makes writting of complicated declarations a lot easie.This helps in eliminating a lot of clutter in the program
+2.helps in acheving portability in programs
+3.helps in providing a better documentation for a program
+
+62. union & struct
+struct v4l2_format {
+	__u32	 type;
+	union {
+		struct v4l2_pix_format		pix;     /* V4L2_BUF_TYPE_VIDEO_CAPTURE */
+		struct v4l2_pix_format_mplane	pix_mp;  /* V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE */
+		struct v4l2_window		win;     /* V4L2_BUF_TYPE_VIDEO_OVERLAY */
+		struct v4l2_vbi_format		vbi;     /* V4L2_BUF_TYPE_VBI_CAPTURE */
+		struct v4l2_sliced_vbi_format	sliced;  /* V4L2_BUF_TYPE_SLICED_VBI_CAPTURE */
+		__u8	raw_data[200];                   /* user-defined */
+	} fmt;
+};
+
+struct v4l2_pix_format {
+	__u32         		width;
+	__u32			height;
+	__u32			pixelformat;
+	__u32			field;		/* enum v4l2_field */
+	__u32            	bytesperline;	/* for padding, zero if unused */
+	__u32          		sizeimage;
+	__u32			colorspace;	/* enum v4l2_colorspace */
+	__u32			priv;		/* private data, depends on pixelformat */
+};
+
+
+
+63. about function pointers & Advantages of func pointers & Advantages of call back functions
+64. Declare a array of function pointer of taking two arguments
+    int (*fun_ptr[])(int,int);
+
+65. How you handle errors with the pointers[memory allocation fails , dangling and wild pointers]
+
+66. About dynamic and static memory [heap,static bss/data]
+
+67. About malloc in depth [brk,sbrk]
+
+68. how can you determine whether your memory is in protected or un-protected mode
+   ------------------------
+
+69. About memory layout /
+
+70.How you will think while writing a program in optimized way 
+71.They will ask most of the question from memory in this round please study MMU well.
+
+72.About volatile and use cases
+73.Why the first two parameters are of type void in memcpy?
+	memcpy() copies bytes of data between memory blocks, sometimes called buffers. 
+	This function doesn't care about the type of data being copied--it simply makes an exact byte-for-byte copy. The function prototype is
+74.Are #pragramas Gerneric or processor specific
+
+
+75.Write a programe In a given string find a specific word.
+	strstr
+
+76. Storage classes [auto,register,static,global]
+
+77. const and volatile
+
+78. brk, sbrk
+
+79. Different segments in a program
+	1. Text segment
+	2. Initialized data segment
+	3. Uninitialized data segment
+	4. Stack
+	5. Heap
+
+80.
+void main()
+{
+    char *str_ptr="MY_STRING";
+    printf("%s",str_ptr);
+}
+     In processes addres space wehre is string "MY_STRING" stored ?
+     Ans. string "MY_STRING" stored at read only Text segment and str_ptr stored at data segment.
+
+81.In a Process Address Space what if stack or heap collide?
+	you'll get either a stack overflow.
+	If the heap grows into the stack, the operating system should always 
+	be aware of the situation and some sort of system call will fail. 
+	The implementation of malloc() almost certainly notices the failure and returns NULL
+
+82.Explain about process address space with data seg,code seg..
+     
+83. how much memory is occupied by process address spcae.
+
+84.When a same executable is excuted in two terminals like terminal 1 execute ./a.out and terminal 2 executed ./a.out what will the programe address space look like on RAM
+  simillar
+
+85.If a global variable defined as int V1=100 in programm_1 and modified this V1=200 in programme_2.what will be printed in Programme_1 and Programme_2.
+
+86.char *name="WIPRO";
+       sizeof(*name) = ?  (Ans :1)
+       sizeof("WIPRO")= ? (Ans :6 )
+       sizeof(name)= ?    (Ans :8 )
+
+87.Declare a function pointer which takes 2 arguments as char pointers,and returns an integer pointer?
+	int * (*fun_ptr)(char *ptr1,char *ptr2);
+
+88.For above function pointer assign the function to be called?
+	fun_ptr=add;
+
+89. Write program for Fibonacci series of first n number
+           Ex: if n=4 ,answer is 0,1,1,2
+
+90. Write program to Insert element in static array.
+          Ex: int a[20] = {1,2,3,5}, Given input element is 4,
+              answer is {1,2,3,4,5}
+91.Write your own malloc implementation without using system calls......
+         Hint:How you will get the heap next free address
+
+
+92. Swap two element in efficient manner [exlusive or opearation]
+     a=a^b;
+     b=a^b;
+     a=a^b;
+
+93.Create a pointer pointing to char type point that to char array containing 10 elements?
+	char (*ptr)[10];
+	char temp[10]; 
+	ptr=temp; 
+	ptr++;
+
+94.The above created pointer if incremented ++ which element of the array it points to?
+
+95.Write an instruction such that integer pointing sould point to first element of the array on increment?
+
+96.Will their be any compilation errors while trying to print the below?
+     int *ptr=NULL;
+     printf("%d",*ptr);//core dump
+   // %s == NULL
+
+97.will their be any warning if yes when at compile time or run time?
+
+98.Sizeof operator without using sizeof operator?
+	printf("sizeof a=%d\n",((int)(intptr+1)-(int)(intptr)));
+
+99. struct test { int a; int b; };  
+	Assume you don’t know the contents of structure, 
+	and you have the base address of test strucuture alone, 
+	how to do access the data inside it ??
+
+100.
+ Standard C file file operations,File opening ,reading ,writing , appending & closing , give with example?
+
+20. What are options/ways are available for conditional compilation?
+#if #elif #else #endif
+#ifdef #else #endif
+#ifndef #else #endif
+
+101.File opening modes in C:
+
+    “r” – Searches file. If the file is opened successfully fopen( ) 
+loads it into memory and sets up a pointer which points to the first character in it. 
+If the file cannot be opened fopen( ) returns NULL.
+
+    “w” – Searches file. If the file exists, its contents are overwritten. 
+If the file doesn’t exist, a new file is created. Returns NULL, if unable to open file.
+
+    “a” – Searches file. If the file is opened successfully fopen( ) 
+loads it into memory and sets up a pointer that points to the last character in it. 
+If the file doesn’t exist, a new file is created. Returns NULL, if unable to open file.
+
+r+ 	open for reading and writing from beginning
+w+ 	open for reading and writing, overwriting a file
+a+ 	open for reading and writing, appending to file 
+
+
+102. fseek(), ftell() and rewind() functions
+
+    fseek(): It is used to move the reading control to different positions using fseek function.
+    ftell(): It tells the byte location of current position of cursor in file pointer.
+    rewind(): It moves the control to beginning of the file.
