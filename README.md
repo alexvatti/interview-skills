@@ -1,2 +1,2 @@
 # interview-skills
-interview skills for testing
+Explore : interview skills : Embedded Systems - Firmware -RTOS - Linux/Android
