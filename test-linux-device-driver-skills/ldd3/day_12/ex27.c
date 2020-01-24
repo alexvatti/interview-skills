@@ -1,6 +1,5 @@
 /*
 ex27 is basic char driver module with mmap implemented,based on the chapter 15 of ldd3 book
-
 */
 
 #include <linux/module.h>

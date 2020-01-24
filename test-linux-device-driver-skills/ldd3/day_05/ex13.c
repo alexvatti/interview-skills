@@ -1,6 +1,5 @@
 /*
-ex13: char drv module is basic module based on the chapter 3 of ldd3 book
-dynamic allocation of major and minor numbers
+ex13: char drv module with poll method, with completion,semephore, wait queue
 */
 #include<linux/module.h>
 #include<linux/init.h>
@@ -104,7 +103,7 @@ static int char_drv_module_init(void)
 	if(ret < 0)
 		goto fail2;
 
-	buffer=kmalloc(GFP_KERNEL,buffer_len);
+	buffer=kmalloc(buffer_len,GFP_KERNEL);
 	if(buffer==NULL)
 		goto fail3;
 

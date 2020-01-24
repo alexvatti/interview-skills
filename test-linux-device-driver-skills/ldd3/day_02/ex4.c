@@ -1,6 +1,6 @@
 /*
-ex4: char drv module is basic module based on the chapter 3 of ldd3 book
-dynamic allocation of major and minor numbers
+ex4: char drv module is  based on the chapter 3 of ldd3 book
+dynamic allocation of major and minor numbers,file operations, char device
 */
 #include<linux/module.h>
 #include<linux/init.h>

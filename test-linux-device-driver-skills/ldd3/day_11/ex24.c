@@ -1,6 +1,5 @@
 /*
-ex24 is basic bus type driver module based on the chapter 14 of ldd3 book
-
+ex24 is basic(gneric) bus type driver module based on the chapter 14 of ldd3 book
 */
 #include<linux/module.h>
 #include<linux/init.h>

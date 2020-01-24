@@ -1,6 +1,5 @@
 /*
-ex4: char drv module is basic module based on the chapter 3 of ldd3 book
-dynamic allocation of major and minor numbers
+ex11: char drv module  with ioctl operations implemented
 */
 #include<linux/module.h>
 #include<linux/init.h>

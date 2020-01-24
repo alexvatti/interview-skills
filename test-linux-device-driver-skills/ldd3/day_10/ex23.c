@@ -2,6 +2,7 @@
 ex23 is basic usb driver modulde based on the chapter 13 of ldd3 book
 https://sysplay.github.io/books/LinuxDrivers/book/Content/Part14.html
 */
+
 #include<linux/module.h>
 #include<linux/init.h>
 #include<linux/kernel.h>

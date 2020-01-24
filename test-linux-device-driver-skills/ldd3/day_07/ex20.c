@@ -1,3 +1,7 @@
+/*
+ex20: interrupt handler : register, enable,disable,free handler
+*/
+
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/interrupt.h>
@@ -6,7 +10,7 @@
 static int irq = SHARED_IRQ, my_dev_id, irq_counter = 0;
 module_param (irq, int, S_IRUGO);
 
-static irqreturn_t my_interrupt (int irq, void *dev_id)
+static irqreturn_t my_interrupt_handler(int irq, void *dev_id)
 {
     irq_counter++;
     printk (KERN_INFO "In the ISR: counter = %d\n", irq_counter);
@@ -15,7 +19,7 @@ static irqreturn_t my_interrupt (int irq, void *dev_id)
 
 static int __init my_irq_init (void)
 {
-    if (request_irq(irq, my_interrupt, IRQF_SHARED, "my_interrupt", &my_dev_id))
+    if (request_irq(irq, my_interrupt_handler, IRQF_SHARED, "my_interrupt", &my_dev_id))
         return -1;
     printk (KERN_INFO "Successfully loading ISR handler\n");
     return 0;

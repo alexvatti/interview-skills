@@ -1,5 +1,6 @@
 /*
-ex16: work queue example */
+ex16: work queue example
+*/
 
 #include<linux/module.h>
 #include<linux/init.h>
@@ -15,6 +16,7 @@ static wait_queue_head_t my_wait_queue;
 
 /* declare a work queue*/
 struct work_struct workq;
+
 void my_workqueue_handler(struct work_struct *work)
 {
 	printk("WORK QUEUE: I'm just a timer to wake up the sleeping moudlue. \n");

@@ -1,5 +1,5 @@
 /*
-ex19: shows the memory allocation using kmalloc, vmalloc
+ex19: shows the memory allocation using vmalloc
 */
 #include<linux/init.h>
 #include<linux/kernel.h>

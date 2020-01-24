@@ -1,6 +1,5 @@
 /*
-ex4: char drv module is basic module based on the chapter 3 of ldd3 book
-dynamic allocation of major and minor numbers
+ex12: char drv module with combination of semaphore and completion
 */
 #include<linux/module.h>
 #include<linux/init.h>

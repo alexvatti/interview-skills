@@ -1,5 +1,6 @@
 /*
-ex17: work queue example */
+ex17: work queue example
+*/
 
 #include<linux/module.h>
 #include<linux/init.h>

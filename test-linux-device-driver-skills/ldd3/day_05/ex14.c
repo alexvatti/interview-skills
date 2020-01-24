@@ -1,6 +1,5 @@
 /*
-ex15: char drv module is basic module based on the chapter 3 of ldd3 book,lseek
-dynamic allocation of major and minor numbers
+ex14: char drv module with lseek method with others
 */
 #include<linux/module.h>
 #include<linux/init.h>

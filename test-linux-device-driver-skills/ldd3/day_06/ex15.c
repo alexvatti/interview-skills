@@ -1,5 +1,6 @@
 /*
-ex15: timer list example */
+ex15: timer list example
+*/
 
 #include<linux/module.h>
 #include<linux/init.h>

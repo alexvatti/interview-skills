@@ -1,6 +1,5 @@
 /*
-ex4: char drv module is basic module based on the chapter 3 of ldd3 book
-dynamic allocation of major and minor numbers
+ex10: char drv module with seq lock operations
 */
 #include<linux/module.h>
 #include<linux/init.h>

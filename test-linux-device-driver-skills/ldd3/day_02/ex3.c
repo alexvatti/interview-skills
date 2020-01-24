@@ -1,6 +1,6 @@
 /*
-ex3: char drv module is basic module based on the chapter 3 of ldd3 book
-static major and minor number
+ex3: char drv module is based on the chapter 3 of ldd3 book
+static major and minor number,file operations,char device
 */
 #include<linux/module.h>
 #include<linux/init.h>
@@ -66,6 +66,7 @@ static struct file_operations sample_char_drv_fops =
 static int char_drv_module_init(void)
 {
 	int ret=0;
+
 	pr_debug("welcome to char drv module\n");
 	char_dev=MKDEV(major,minor);
 	ret=register_chrdev_region(char_dev,count,"sample char drv");

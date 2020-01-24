@@ -1,5 +1,5 @@
 /*
-ex22 is basic pci driver modulde based on the chapter 12 of ldd3 book
+ex22 is basic pci driver module based on the chapter 12 of ldd3 book
 */
 #include<linux/module.h>
 #include<linux/init.h>
@@ -16,8 +16,10 @@ static int sample_pci_driver_probe(struct pci_dev *dev, const struct pci_device_
 	long iobase[6],iosize[6];
 	unsigned int *VirtualBaseAddr[6];
 	int i,bar;
+
 	//step 1:
 	pci_enable_device(dev);
+
 	//step 2:
 	for(i=0;i<6;i++) {
 		bar=i;
@@ -27,11 +29,12 @@ static int sample_pci_driver_probe(struct pci_dev *dev, const struct pci_device_
 		if (!iobase[i] || ((pci_resource_flags (dev, bar) & IORESOURCE_IO) == 0)) 
 		{
         		printk("no I/O resource at PCI BAR %d\n",bar);
-		}
-		if (!iobase[i] || ((pci_resource_flags (dev, bar) & IORESOURCE_MEM) == 0)) 
+		} else if (!iobase[i] || ((pci_resource_flags (dev, bar) & IORESOURCE_MEM) == 0)) 
 		{
         		printk("no MEM resource at PCI BAR %d\n",bar);
-		} 
+		} else {
+
+		}
 		if(pci_request_region (dev, bar, "bar")){
         		printk("Request PCI BAR Region :%d failed\n",bar);
 		} else {

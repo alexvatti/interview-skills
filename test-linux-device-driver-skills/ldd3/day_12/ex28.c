@@ -1,6 +1,5 @@
 /*
 ex28 is basic  module with dma_alloc_coherent implemented,based on the chapter 15 of ldd3 book
-
 */
 
 #include <linux/module.h>
