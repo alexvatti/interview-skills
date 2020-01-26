@@ -267,3 +267,65 @@ Python has many built-in functions, and if you do not know how to use it, you ca
 Hints:
     The built-in document method is __doc__
 
+
+Question 25:
+Define a function which can compute the sum of two numbers.
+
+Hints:
+Define a function with two numbers as arguments. You can compute the sum in the function and return the value.
+
+
+Question 26:
+Define a function that can convert a integer into a string and print it in console.
+
+Question 27:
+Define a function that can receive two integral numbers in string form and compute their sum and then print it in console.
+
+
+Question 28:
+Define a function that can accept two strings as input and concatenate them and then print it in console.
+
+
+Question 29:
+Define a function that can accept two strings as input and print the string with maximum length in console. If two strings have the same length, then the function should print al l strings line by line.
+
+Question 30:
+Define a function that can accept an integer number as input and print the "It is an even number" if the number is even, otherwise print "It is an odd number".
+
+Question 31:
+Define a function which can print a dictionary where the keys are numbers between 1 and 3 (both included) and the values are square of keys.
+
+Question 32:
+Define a function which can print a dictionary where the keys are numbers between 1 and 20 (both included) and the values are square of keys.
+
+Question 33:
+Define a function which can generate a dictionary where the keys are numbers between 1 and 20 (both included) and the values are square of keys. The function should just print the values only.
+
+Question 34:
+Define a function which can generate a dictionary where the keys are numbers between 1 and 20 (both included) and the values are square of keys. The function should just print the keys only.
+
+
+Question 35:
+Define a function which can generate and print a list where the values are square of numbers between 1 and 20 (both included).
+
+Question 36:
+Define a function which can generate a list where the values are square of numbers between 1 and 20 (both included). Then the function needs to print the first 5 elements in the list.
+
+
+Question 37:
+Define a function which can generate a list where the values are square of numbers between 1 and 20 (both included). Then the function needs to print the last 5 elements in the list.
+
+
+Question 38:
+Define a function which can generate a list where the values are square of numbers between 1 and 20 (both included). Then the function needs to print all values except the first 5 elements in the list.
+
+Question 39:
+Define a function which can generate and print a tuple where the value are square of numbers between 1 and 20 (both included).
+
+Question 40:
+With a given tuple (1,2,3,4,5,6,7,8,9,10), write a program to print the first half values in one line and the last half values in one line.  
+
+
+
+
+
