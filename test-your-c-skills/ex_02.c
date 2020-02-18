@@ -17,8 +17,8 @@ int**  alloc_two_dim_array(int rows,int columns)
 			printf("memory allocation failed\n");
 			return NULL;
 		}else {
-			for(i=0;i<columns;i++){
-				ptr[i]=(int*)malloc(sizeof(int)*rows);
+			for(i=0;i<rows;i++){
+				ptr[i]=(int*)malloc(sizeof(int)*columns);
 				if(ptr[i]==NULL) {
 					printf("memory allocation failed\n");
 					for(j=0;j<i;j++)

@@ -3,7 +3,7 @@
 void printbits(int a)
 {
    int i;
-   for(i=((sizeof(int)*4)-1);i>=0;i--)
+   for(i=((sizeof(int)*8)-1);i>=0;i--)
    {
         if(a & (1 << i))
                 printf("1");

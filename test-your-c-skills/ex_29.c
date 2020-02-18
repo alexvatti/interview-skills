@@ -10,7 +10,16 @@ int fun(int n)
 		fun(n/10);
 		return(sum);
 	}
-}
+} 
+/*
+int fun(int n)
+{
+	if(n==0)
+		return 0;
+	else {
+		return(n%10 + fun(n/10));
+	}
+}*/
 int main()
 {
 	printf("sum of digits=%d\n",fun(4567));

@@ -6,10 +6,10 @@ int main()
         char *ptr=name;
 
         printf("name=%s\n",ptr);
-        *ptr++;
+        *ptr++ ; //inc pointer
         printf("name=%s\n",ptr);
-        (*ptr)++;
+        (*ptr)++; //inc value
         printf("name=%s\n",ptr);
-        ++*ptr;
+        ++*ptr; //inc value
         printf("name=%s\n",ptr);
 }

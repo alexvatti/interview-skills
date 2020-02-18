@@ -40,7 +40,7 @@ void quicksort(int arr[],int lower,int upper)
 int main()
 {
 	int a[]={4,3,5,6,2,7,8,10};
-	int l=0,h=7,i;
+	int l=0,h=(sizeof(a)/sizeof(int)-1),i;
         quicksort(a,l,h);
 	for(i=0;i<=h;i++)
 		printf("%d\t",a[i]);
